@@ -1,0 +1,784 @@
+/* ============================================================
+   Élite Car Studio — clone of the EAD Milano detailing layout
+   Reference: clonedetailing.png / 2.png / 3.png (1830px @2x = 915 CSS)
+   ============================================================ */
+
+:root{
+  --bg:        #050505;
+  --surface:   #0e0f0e;
+  --surface-2: #121212;
+  --line:      rgba(255,255,255,.10);
+  --line-soft: rgba(255,255,255,.06);
+  --accent:    #b11226;
+  --accent-dim:#6e101e;
+  /* a hair brighter, for small red marks that must clear 3:1 on the black */
+  --accent-lift:#c81730;
+  --fg:        #fafafa;
+  --muted:     #a3a3a3;
+  --mono-dim:  #6e6e6e;
+
+  /* Own type system, deliberately unlike the cloned reference: that site ran a
+     very wide geometric display (matched here previously by Panchang/Chillax).
+     Cabinet Grotesk is tighter and more editorial, Supreme is a warmer body face
+     than Inter, and IBM Plex Mono replaces Space Mono on the tracked labels.
+     One display family at two weights instead of two families. */
+  --display:   "Cabinet Grotesk", "Supreme", system-ui, sans-serif;
+  --display-2: "Cabinet Grotesk", "Supreme", system-ui, sans-serif;
+  --body:    "Supreme", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --gutter: clamp(20px, 4.4vw, 40px);
+  --sec-y:  clamp(78px, 11.25vw, 165px);
+
+  /* Display scale, held at the same optical cap height across the font change:
+     Cabinet Grotesk has a 0.670 cap ratio against Panchang's 0.696, so every
+     display size is scaled by 1.039. */
+  --h1: clamp(42px, 7.92vw, 123px);
+  --h2: clamp(42px, 7.92vw, 123px);
+  --display-lh: .904;
+
+  /* Mono roles. Reference runs two sizes: ~13px for nav/eyebrows and
+     ~10px for the small data labels, both tracked to about .26em. */
+  --mono-md: clamp(10px, 1.31vw, 13px);
+  --mono-sm: clamp(9px, 1.09vw, 11px);
+  --mono-track: .26em;
+
+  --ease: cubic-bezier(.2,.7,.25,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ background:var(--bg); -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+img,video{ display:block; max-width:100%; -webkit-user-drag:none; user-select:none; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+ol,ul{ list-style:none; }
+
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:200;
+  background:var(--accent); color:#050505; padding:10px 16px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+}
+.skip:focus{ left:12px; top:12px; }
+
+.wrap{ width:100%; padding-inline:var(--gutter); }
+.sec{ padding-block:var(--sec-y); }
+.green{ color:var(--accent); }
+.dim{ color:var(--mono-dim); }
+
+/* ── shared type ───────────────────────────────────────────── */
+
+.mono{
+  font-family:var(--mono);
+  font-size:var(--mono-sm);
+  letter-spacing:var(--mono-track);
+  text-transform:uppercase;
+  line-height:1.8;
+  color:var(--mono-dim);
+}
+.mono--md{ font-size:var(--mono-md); }
+
+.eyebrow{
+  display:flex; align-items:center; gap:18px;
+  font-family:var(--mono);
+  font-size:var(--mono-md);
+  letter-spacing:var(--mono-track);
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.eyebrow--green{ color:var(--accent); }
+
+.rule{ display:block; width:clamp(34px,5.25vw,56px); height:1px; background:currentColor; opacity:.85; }
+.rule--after{ width:clamp(70px,11vw,130px); background:var(--accent); }
+.rule--flex{ flex:1; height:1px; background:var(--line); opacity:1; }
+
+.h2{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:var(--h2);
+  line-height:var(--display-lh);
+  letter-spacing:-.022em;
+}
+.h2--white{ color:var(--fg); }
+
+/* ── buttons ───────────────────────────────────────────────── */
+
+.btn-outline{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  border:1px solid rgba(255,255,255,.28);
+  padding:12px 20px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--fg);
+  transition:border-color .3s var(--ease), background-color .3s var(--ease), transform .3s var(--ease);
+}
+.btn-outline:hover{ border-color:var(--accent); background:rgba(177,18,38,.07); }
+.btn-outline:active{ transform:translateY(1px); }
+
+.btn-solid{
+  display:flex; align-items:center; justify-content:center;
+  background:var(--accent); color:#fff2f3;
+  padding:20px 24px;
+  font-family:var(--mono); font-weight:700; font-size:12px;
+  letter-spacing:.2em; text-transform:uppercase;
+  transition:background-color .3s var(--ease), transform .3s var(--ease);
+}
+.btn-solid:hover{ background:#ce1a31; }
+.btn-solid:active{ transform:translateY(1px); }
+
+/* ══════════════════════════ NAV ══════════════════════════ */
+
+.nav{
+  position:fixed; inset:0 0 auto; z-index:100;
+  transition:background-color .4s var(--ease), backdrop-filter .4s var(--ease);
+}
+.nav.is-stuck{ background:rgba(5,5,5,.82); backdrop-filter:blur(14px); }
+
+.nav__inner{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  gap:clamp(18px,3.2vw,54px);
+  padding:22px var(--gutter);
+}
+.nav__cta,.burger{ grid-column:3; justify-self:end; }
+
+.logo{ display:block; line-height:1; }
+.logo__mark{
+  display:block;
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(20px,2.55vw,26px); letter-spacing:-.02em;
+  color:var(--accent);
+}
+.logo__sub{
+  display:block; margin-top:2px;
+  font-family:var(--mono); font-size:var(--mono-sm);
+  letter-spacing:.22em; color:rgba(255,255,255,.62);
+}
+
+.nav__menu{ display:flex; align-items:center; gap:clamp(16px,3vw,46px); }
+
+.nav__link{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--mono); font-size:var(--mono-md);
+  letter-spacing:var(--mono-track); text-transform:uppercase;
+  color:var(--fg);
+  transition:color .25s var(--ease);
+}
+.nav__link:hover{ color:var(--accent); }
+.nav__chev{ transition:transform .25s var(--ease); }
+.nav__drop{ position:relative; }
+[aria-expanded="true"] .nav__chev{ transform:rotate(180deg); }
+
+.nav__panel{
+  position:absolute; top:calc(100% + 16px); left:-18px;
+  min-width:250px; padding:14px 0;
+  background:rgba(9,9,9,.96); backdrop-filter:blur(16px);
+  border:1px solid var(--line);
+}
+.nav__panel a{
+  display:block; padding:9px 22px;
+  font-size:14px; color:var(--muted);
+  transition:color .2s var(--ease), background-color .2s var(--ease);
+}
+.nav__panel a:hover{ color:var(--fg); background:rgba(255,255,255,.04); }
+
+.lang{ display:flex; align-items:center; gap:9px; }
+.lang__btn{
+  font-family:var(--mono); font-size:var(--mono-md);
+  letter-spacing:.16em; color:var(--mono-dim);
+  transition:color .25s var(--ease);
+}
+.lang__btn:hover{ color:var(--fg); }
+.lang__btn.is-active{ color:var(--accent); }
+
+.burger{ display:none; width:30px; height:18px; position:relative; }
+.burger span{
+  position:absolute; left:0; right:0; height:1.5px; background:var(--fg);
+  transition:transform .3s var(--ease), opacity .3s var(--ease);
+}
+.burger span:first-child{ top:3px; }
+.burger span:last-child{ bottom:3px; }
+.burger[aria-expanded="true"] span:first-child{ transform:translateY(5.5px) rotate(45deg); }
+.burger[aria-expanded="true"] span:last-child{ transform:translateY(-5.5px) rotate(-45deg); }
+
+/* ══════════════════════════ HERO ══════════════════════════ */
+
+.hero{ position:relative; }
+
+.hero__media{ position:absolute; inset:0; overflow:hidden; }
+
+/* The hero is far taller than the clip's 16:9 frame (the form sets its height),
+   so stretching the video to the full hero made object-fit:cover crop about a
+   third off each side — that was the "zoomed in" look. Instead the video spans
+   the full screen width and keeps its own aspect, so nothing is cropped
+   horizontally, and its bottom edge is masked away into the page background.
+   min-height keeps it from shrinking to a thin strip on narrow screens, where
+   it falls back to cropping. */
+.hero__video{
+  width:100%;
+  height:auto;
+  aspect-ratio:16 / 9;
+  min-height:46vh;
+  object-fit:cover;
+  object-position:center;
+  filter:brightness(1.45) contrast(1.03);
+  -webkit-mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.5) 88%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.5) 88%,transparent 100%);
+}
+.hero__scrim{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(5,5,5,.72) 0%, rgba(5,5,5,.32) 26%, rgba(5,5,5,.56) 62%, var(--bg) 100%),
+    /* a floor under the copy column, and extra weight under the form, so both
+       stay legible wherever the footage happens to be bright */
+    linear-gradient(90deg, rgba(5,5,5,.46) 0%, rgba(5,5,5,.16) 42%, rgba(5,5,5,.14) 72%, rgba(5,5,5,.18) 100%),
+    radial-gradient(120% 70% at 50% 40%, rgba(40,10,15,.34), transparent 70%);
+}
+
+.hero__grid{
+  position:relative; z-index:2;
+  display:grid; gap:clamp(40px,6vw,80px);
+  padding-top:clamp(104px,14.5vw,190px);
+  padding-bottom:clamp(56px,8vw,110px);
+}
+@media (min-width:1080px){
+  .hero__grid{ grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); align-items:center; }
+}
+
+.hero__l{ position:relative; }
+.hero__l .eyebrow{ color:var(--accent); }
+.hero__l .rule{ background:var(--accent); }
+
+.hero__title{
+  font-family:var(--display); font-weight:700;
+  font-size:var(--h1); line-height:var(--display-lh); letter-spacing:-.022em;
+  color:var(--accent);
+  margin-top:clamp(14px,2vw,26px);
+}
+/* the form sits beside the headline from 1080 up, so the display size steps down
+   to keep "Studio Milano" inside the left column */
+@media (min-width:1080px){
+  .hero__title{ font-size:clamp(37px,5.82vw,91px); }
+}
+.hero__title span{ display:block; }
+.outline{
+  font-family:var(--body); font-style:italic; font-weight:700;
+  letter-spacing:-.03em; color:transparent;
+  -webkit-text-stroke:1.3px rgba(255,255,255,.8);
+  paint-order:stroke fill;
+}
+
+.hero__copy{
+  margin-top:clamp(26px,3.6vw,44px);
+  max-width:39ch;
+  font-size:clamp(13px,1.75vw,17px); line-height:1.625;
+  color:#e8e8e8;
+}
+
+/* ══════════════════════════ FORM ══════════════════════════ */
+
+/* Glass panel: translucent enough to read the footage moving behind it, with a
+   crisp hairline edge and a lit top border so the pane has a defined boundary
+   instead of fading into the video. The blur does the legibility work, not opacity. */
+.form{
+  position:relative;
+  padding:clamp(24px,3.4vw,40px);
+  background:
+    linear-gradient(155deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.02) 42%, rgba(255,255,255,0) 70%),
+    rgba(6,6,7,.2);
+  backdrop-filter:blur(26px) saturate(1.25); -webkit-backdrop-filter:blur(26px) saturate(1.25);
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 24px 60px rgba(0,0,0,.5);
+}
+/* a brighter top-left edge, the way light catches the lip of a glass sheet */
+.form::before{
+  content:""; position:absolute; inset:-1px; pointer-events:none;
+  border-top:1px solid rgba(255,255,255,.5);
+  border-left:1px solid rgba(255,255,255,.22);
+  -webkit-mask-image:linear-gradient(160deg,#000 0%,transparent 55%);
+  mask-image:linear-gradient(160deg,#000 0%,transparent 55%);
+}
+.form__head{
+  font-family:var(--display-2); font-weight:600;
+  font-size:clamp(22px,2.8vw,31px); line-height:1.1; letter-spacing:-.022em;
+}
+.form__lead{
+  margin-top:10px; max-width:38ch;
+  font-size:clamp(12px,1.45vw,14px); line-height:1.6; color:#c9c9c9;
+}
+
+.form__row{ margin-top:clamp(16px,2.1vw,22px); }
+.form__l{ display:block; margin-bottom:8px; letter-spacing:.2em; color:#cfcfcf; }
+
+.form__i{
+  display:block; width:100%;
+  padding:12px 14px;
+  background:rgba(0,0,0,.28);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.24);
+  color:var(--fg);
+  font-family:var(--body); font-size:15px; line-height:1.4;
+  transition:border-color .25s var(--ease), background-color .25s var(--ease);
+}
+.form__i::placeholder{ color:#8a8a8a; }
+.form__i:hover{ border-color:rgba(255,255,255,.42); }
+.form__i:focus{ outline:none; border-color:var(--accent); background:rgba(0,0,0,.42); }
+.form__i:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.form__t{ resize:vertical; min-height:84px; }
+
+/* select needs its own arrow once the native appearance is dropped */
+.form__sel{ position:relative; display:block; }
+.form__sel select{ appearance:none; -webkit-appearance:none; padding-right:38px; cursor:pointer; }
+.form__sel select:invalid{ color:#5f5f5f; }
+.form__sel option{ background:#0d0d0d; color:var(--fg); }
+.form__chev{
+  position:absolute; right:14px; top:50%; translate:0 -50%;
+  color:var(--muted); pointer-events:none;
+}
+
+.form__err{
+  display:none; margin-top:7px;
+  font-size:var(--mono-sm); letter-spacing:.1em; text-transform:none;
+  color:#ff8898;
+}
+.form__err.is-on{ display:block; }
+.form__i[aria-invalid="true"]{ border-color:#ff8898; }
+
+.form__submit{ width:100%; margin-top:clamp(20px,2.8vw,30px); border:0; cursor:pointer; }
+.form__status{
+  margin-top:12px; min-height:1.2em;
+  letter-spacing:.1em; text-transform:none; color:var(--muted);
+}
+.form__status.is-err{ color:#ff8898; }
+
+/* ══════════════════════════ SERVIZI ══════════════════════════ */
+
+.sec__head{ margin-bottom:clamp(48px,8vw,110px); }
+
+/* one line at every width — the words need 711px of the 1840px available at
+   1920, and 243px of 350px at 390, so the fluid scale never has to give */
+.h2--line{ white-space:nowrap; }
+
+.cards{
+  border:1px solid var(--line);
+  display:grid; grid-template-columns:1fr;
+}
+/* three services, side by side once the columns can hold the copy */
+@media (min-width:900px){ .cards{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+.card{
+  position:relative; isolation:isolate; overflow:hidden;
+  display:flex; flex-direction:column;
+  /* content sets the height now the bottom link is gone; the floor only stops a
+     short card looking squat, and the grid equalises the row */
+  min-height:clamp(220px,20vw,300px);
+  padding:clamp(26px,3.4vw,44px);
+  border-bottom:1px solid var(--line);
+}
+.card:last-child{ border-bottom:0; }
+@media (min-width:900px){
+  .card{ border-bottom:0; border-right:1px solid var(--line); }
+  .card:last-child{ border-right:0; }
+}
+
+.card__bg{
+  position:absolute; inset:0; z-index:-1;
+  width:100%; height:100%; object-fit:cover;
+  opacity:.22; filter:grayscale(1) brightness(.5);
+  transform:scale(1.02);
+  transition:opacity .6s var(--ease), transform .6s var(--ease);
+}
+.card:hover .card__bg{ opacity:.34; transform:scale(1.06); }
+.card::after{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(180deg, rgba(5,5,5,.55), rgba(5,5,5,.9));
+}
+
+.card__title{
+  font-family:var(--display-2); font-weight:600;
+  font-size:clamp(25px,2.9vw,40px); line-height:1.04; letter-spacing:-.022em;
+}
+.card__copy{
+  margin-top:clamp(13px,2vw,24px); max-width:36ch;
+  font-size:clamp(12px,1.48vw,15px); line-height:1.72; color:var(--muted);
+}
+/* ══════════════════════════ TICKER VEICOLI ══════════════════════════ */
+
+/* Proportions taken off the reference crop: cap height 75px, dot 40px and a 31px
+   gap either side of it. So the dot is .53 of the cap and each gap .45 of it —
+   expressed in em against Cabinet Grotesk's .670 cap ratio, that is .378em and
+   .30em, which hold at every size the clamp produces. */
+.ticker{
+  overflow:hidden;
+  padding-block:clamp(30px,4.4vw,62px);
+  border-block:1px solid var(--line-soft);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+}
+
+.ticker__track{
+  display:flex; width:max-content;
+  animation:ticker-scroll 42s linear infinite;
+}
+/* the two sets are identical, so -50% lands exactly where the loop began */
+@keyframes ticker-scroll{ to{ transform:translateX(-50%); } }
+
+.ticker__set{
+  display:flex; align-items:center;
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(30px,5.1vw,79px);
+  line-height:1; letter-spacing:-.005em; text-transform:uppercase;
+  color:var(--fg);
+  white-space:nowrap;
+}
+/* the spacing after each dot rides on the item itself rather than on a flex gap
+   of the list: a list gap does not apply between the two lists, which left the
+   Sedan→SUV join 22px tighter than every other one, once per loop */
+.ticker__set li{ display:flex; align-items:center; gap:.3em; padding-right:.3em; }
+.ticker__set li::after{
+  content:""; flex:none;
+  width:.378em; height:.378em; border-radius:50%;
+  background:var(--accent);
+  /* nudge onto the optical centre of the caps, as in the reference */
+  margin-bottom:.03em;
+}
+
+/* !important, because the blanket reduced-motion rule below sets a .001ms
+   duration on everything and would otherwise win */
+@media (prefers-reduced-motion:reduce){
+  .ticker__track{ animation:none !important; }
+}
+
+/* ══════════════════════════ PROCESSO ══════════════════════════ */
+
+/* Proportions off the reference: circle 108px with a ~4px ring, connector at the
+   circle's vertical centre, title cap .20 of the diameter and a .44 diameter gap
+   below the circle. Everything below is expressed against --dia so it scales. */
+.processo{ position:relative; }
+.processo__pin{ padding-block:var(--sec-y); }
+
+.processo__stage{ position:relative; margin-top:clamp(46px,8vw,110px); overflow:hidden; }
+.processo__track{ position:relative; z-index:1; padding-inline:var(--gutter); }
+
+.steps{
+  --dia:clamp(46px,4.5vw,66px);
+  --ring:max(2px, calc(var(--dia) * .037));
+  --col-gap:clamp(24px,3.4vw,48px);
+  display:grid; grid-template-columns:1fr;
+  gap:clamp(40px,5vw,72px) var(--col-gap);
+}
+@media (min-width:640px){ .steps{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (min-width:900px){ .steps{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+.step{ position:relative; }
+
+/* connector running from this circle to the next one in the row; it reaches
+   across the grid gap, so it stops at the last column of each row */
+.step::before{
+  content:""; position:absolute;
+  top:calc(var(--dia) / 2);
+  left:calc(var(--dia) + var(--col-gap) * .4);
+  right:calc(-1 * var(--col-gap));
+  height:1px; background:var(--accent); opacity:.55;
+}
+.step:last-child::before{ display:none; }
+@media (max-width:639px){ .step::before{ display:none; } }
+@media (min-width:640px) and (max-width:899px){ .step:nth-child(2n)::before{ display:none; } }
+@media (min-width:900px){ .step:nth-child(3n)::before{ display:none; } }
+
+.step__n{
+  display:grid; place-items:center;
+  width:var(--dia); height:var(--dia); border-radius:50%;
+  border:var(--ring) solid var(--accent-lift);
+  /* opaque, so the connector passes behind rather than through */
+  background:var(--bg);
+  font-family:var(--display); font-weight:700;
+  font-size:calc(var(--dia) * .3); line-height:1; letter-spacing:.01em;
+  color:var(--accent-lift);
+}
+
+.step__t{
+  margin-top:calc(var(--dia) * .44);
+  font-family:var(--display-2); font-weight:700;
+  font-size:calc(var(--dia) * .32); line-height:1.25; letter-spacing:-.015em;
+  color:var(--fg);
+}
+.step__c{
+  margin-top:clamp(12px,1.5vw,18px); max-width:34ch;
+  font-size:clamp(13px,1.05vw,15px); line-height:1.62; color:var(--muted);
+}
+
+/* ══════════════════════════ ARCHIVIO ══════════════════════════ */
+
+.archivio{ padding-bottom:clamp(60px,9vw,130px); }
+
+.archivio__title{
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(42px,7.92vw,123px); line-height:.88; letter-spacing:-.03em;
+}
+.archivio__mark{ display:block; }
+.archivio__em{ display:block; font-family:var(--body); font-style:italic; font-weight:600; letter-spacing:-.035em; }
+.archivio__copy{
+  margin-top:clamp(24px,3.6vw,44px); max-width:44ch;
+  font-size:clamp(13px,1.75vw,17px); line-height:1.62; color:var(--muted);
+}
+
+.rail{
+  margin-top:clamp(40px,6.5vw,86px);
+  overflow-x:auto; overflow-y:hidden;
+  scrollbar-width:none; -ms-overflow-style:none;
+  cursor:grab;
+}
+.rail::-webkit-scrollbar{ display:none; }
+.rail.is-dragging{ cursor:grabbing; scroll-behavior:auto; }
+.rail__track{
+  display:flex; gap:clamp(16px,2.4vw,28px);
+  padding-inline:var(--gutter);
+  width:max-content;
+}
+
+.proj{ flex:0 0 auto; }
+.proj figure{ position:relative; overflow:hidden; background:var(--surface-2); }
+.proj img{
+  height:clamp(280px,45.4vw,560px); width:auto; max-width:none;
+  object-fit:cover;
+  transition:transform .7s var(--ease);
+}
+.proj:hover img{ transform:scale(1.045); }
+.proj__badge{
+  position:absolute; top:12px; right:12px;
+  display:inline-flex; align-items:center; gap:7px;
+  padding:6px 11px; background:var(--accent); color:#fff2f3;
+  font-size:10px; letter-spacing:.16em; line-height:1;
+}
+.proj__row{ display:flex; align-items:baseline; justify-content:space-between; gap:18px; }
+.proj__row + .proj__row{ margin-top:4px; }
+.proj__row:first-of-type{ margin-top:14px; }
+.proj__n{ letter-spacing:.16em; white-space:nowrap; }
+.proj__name{
+  font-family:var(--display-2); font-weight:700; font-size:clamp(15px,2.07vw,22px);
+  letter-spacing:-.02em; line-height:1.2;
+}
+.proj__name strong{ font-weight:700; }
+.proj__name span{ font-weight:400; color:#8d8d8d; }
+.proj__meta span:last-child{ white-space:nowrap; }
+
+/* ══════════════════════════ NUMERI ══════════════════════════ */
+
+/* No boxes here — three figures on the black, in Supreme rather than the
+   Cabinet Grotesk / IBM Plex Mono pairing the rest of the page runs. */
+.stats{
+  display:grid; grid-template-columns:1fr;
+  gap:clamp(38px,5vw,64px) clamp(28px,4vw,64px);
+}
+@media (min-width:640px){ .stats{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+.stat{ text-align:center; }
+
+.stat__n{
+  font-family:var(--body); font-weight:700;
+  font-size:clamp(46px,6.4vw,92px); line-height:.9; letter-spacing:-.035em;
+  color:var(--accent);
+  /* equal-width digits, so the figure does not jitter while it counts up */
+  font-variant-numeric:tabular-nums;
+}
+.stat__u{ font-size:.62em; letter-spacing:-.02em; }
+
+.stat__c{
+  margin-top:clamp(14px,1.9vw,24px); max-width:28ch; margin-inline:auto;
+  font-family:var(--body);
+  font-size:clamp(14px,1.25vw,17px); line-height:1.5; color:var(--muted);
+}
+
+/* ══════════════════════════ RECENSIONI ══════════════════════════ */
+
+.recensioni__lead{
+  margin-top:clamp(26px,4vw,54px); max-width:56ch;
+  font-size:clamp(13px,1.75vw,17px); line-height:1.6; color:var(--muted);
+}
+.quotes{
+  margin-top:clamp(40px,6.5vw,86px);
+  border:1px solid var(--line);
+  display:grid; grid-template-columns:1fr;
+}
+@media (min-width:760px){ .quotes{ grid-template-columns:1fr 1fr; } }
+
+.quote{
+  padding:clamp(30px,4.6vw,60px);
+  border-bottom:1px solid var(--line);
+}
+@media (min-width:760px){
+  .quote:nth-child(odd){ border-right:1px solid var(--line); }
+  .quote:nth-last-child(-n+2){ border-bottom:0; }
+}
+@media (max-width:759px){ .quote:last-child{ border-bottom:0; } }
+
+.quote__glyph{ display:block; font-size:clamp(20px,2.8vw,30px); line-height:1; }
+.quote__t{
+  margin-top:clamp(20px,3vw,38px);
+  font-family:var(--display-2); font-weight:600;
+  font-size:clamp(22px,3.67vw,43px); line-height:1.25; letter-spacing:-.022em;
+}
+
+/* ══════════════════════════ CONSULTO ══════════════════════════ */
+
+.consulto{
+  position:relative; isolation:isolate;
+  background:radial-gradient(120% 90% at 18% 55%, rgba(48,12,19,.5), transparent 68%);
+}
+
+/* The field is masked on all four edges so the lines dissolve into the black
+   rather than stopping at the section boundary — no seam against the reviews
+   above or the footer below. Two masks multiply: a vertical fade that is the
+   long one, and a gentler horizontal one. */
+.waves{
+  /* height is set by waves.js: from here to the bottom of the footer, so the
+     lines run to the end of the page rather than stopping at this section */
+  position:absolute; top:0; left:0; right:0; z-index:-1;
+  overflow:hidden; pointer-events:none;
+  color:var(--accent);
+  opacity:.5;
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 0%, #000 16%, #000 92%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image:
+    linear-gradient(180deg, transparent 0%, #000 16%, #000 92%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-composite:intersect;
+}
+.waves svg{ display:block; }
+.consulto__grid{ display:grid; gap:clamp(46px,7vw,90px); }
+@media (min-width:1100px){
+  .consulto__grid{
+    grid-template-columns:minmax(0,1fr) clamp(260px,20.5vw,330px);
+    gap:clamp(50px,7.1vw,115px);
+  }
+}
+
+.consulto__title{
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(42px,8.48vw,131px); line-height:var(--display-lh); letter-spacing:-.025em;
+}
+.consulto__copy{
+  margin-top:clamp(34px,5.4vw,74px); max-width:46ch;
+  font-size:clamp(14px,1.75vw,17px); line-height:1.62; color:var(--muted);
+}
+
+.field{ margin-top:clamp(26px,4vw,46px); }
+/* the intro paragraph above the fields is gone, so the column starts flush with
+   the headline */
+.field:first-child{ margin-top:0; }
+.field__l{ letter-spacing:.2em; }
+.field__v{
+  display:block; margin-top:6px;
+  font-size:clamp(20px,2.9vw,33px); line-height:1.18; letter-spacing:-.015em;
+  color:#f2f2f2;
+  transition:color .25s var(--ease);
+}
+a.field__v:hover{ color:var(--accent); }
+
+.consulto__r .btn-solid{ margin-top:clamp(34px,5vw,60px); }
+.btn-outline--wide{ display:flex; margin-top:14px; padding:19px 24px; font-size:12px; }
+
+/* ══════════════════════════ FOOTER ══════════════════════════ */
+
+.footer{ padding-block:clamp(60px,9vw,120px) clamp(34px,5vw,58px); border-top:1px solid var(--line-soft); }
+
+.footer__grid{
+  display:grid; gap:clamp(34px,4.6vw,54px);
+  grid-template-columns:1fr;
+}
+@media (min-width:700px){ .footer__grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (min-width:1100px){
+  .footer__grid{ grid-template-columns:1.12fr .8fr .62fr 1.42fr 1.56fr; }
+}
+
+.logo--footer .logo__mark{ font-size:clamp(19px,2.3vw,24px); }
+.footer__desc{
+  margin-top:clamp(22px,3.4vw,44px); max-width:34ch;
+  font-size:14px; line-height:1.6; color:var(--muted);
+}
+
+.footer__h{ color:var(--accent); letter-spacing:.2em; margin-bottom:clamp(16px,2.4vw,26px); }
+.footer__col p{ font-size:15px; line-height:1.72; color:var(--muted); }
+.footer__col a{ transition:color .25s var(--ease); }
+.footer__col a:hover{ color:var(--accent); }
+.footer__name{ color:var(--fg) !important; font-weight:500; margin-bottom:2px; }
+.footer__gap{ margin-top:1.1em; }
+.footer__split{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,2.2vw,26px); }
+
+.hours{ display:flex; justify-content:space-between; gap:20px; max-width:420px; }
+.hours span:last-child{ color:#d6d6d6; }
+.footer__fine{ margin-top:10px; font-size:12px !important; color:var(--mono-dim) !important; }
+
+.footer__seo{
+  margin-top:clamp(46px,7vw,86px); padding-top:clamp(28px,4vw,48px);
+  border-top:1px solid var(--line-soft);
+  max-width:100ch; font-size:14px; line-height:1.68; color:#787878;
+}
+
+.footer__legal{
+  margin-top:clamp(28px,4vw,48px); padding-top:clamp(22px,3.2vw,38px);
+  border-top:1px solid var(--line-soft);
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:18px;
+}
+.footer__legal .mono{ color:#5f5f5f; line-height:1.9; }
+.footer__policies{ display:flex; flex-wrap:wrap; gap:clamp(16px,2.6vw,34px); }
+.footer__policies a{ transition:color .25s var(--ease); }
+.footer__policies a:hover{ color:var(--accent); }
+
+/* ══════════════════════════ REVEALS ══════════════════════════ */
+
+.reveal{
+  opacity:0; transform:translateY(22px); filter:blur(7px);
+  transition:opacity .85s var(--ease), transform .85s var(--ease), filter .85s var(--ease);
+}
+.reveal.is-in{ opacity:1; transform:none; filter:none; }
+.reveal.d1{ transition-delay:.08s; }
+.reveal.d2{ transition-delay:.16s; }
+
+/* ══════════════════════════ MOBILE NAV ══════════════════════════ */
+
+@media (max-width:800px){
+  .burger{ display:block; }
+  .nav__cta{ display:none; }
+  .nav__menu{
+    position:fixed; inset:0; z-index:-1;
+    flex-direction:column; justify-content:center; align-items:flex-start;
+    gap:22px; padding:0 var(--gutter);
+    background:rgba(5,5,5,.97); backdrop-filter:blur(18px);
+    opacity:0; pointer-events:none;
+    transition:opacity .35s var(--ease);
+  }
+  .nav__menu.is-open{ opacity:1; pointer-events:auto; z-index:90; }
+  /* keep the logo and the close button above the open overlay */
+  .logo,.burger{ position:relative; z-index:95; }
+  .nav__link{ font-size:15px; }
+  .nav__panel{ position:static; border:0; background:none; padding:6px 0 0 14px; }
+}
+
+/* ══════════════════════════ REDUCED MOTION ══════════════════════════ */
+
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .reveal{ opacity:1; transform:none; filter:none; }
+}

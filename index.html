@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Élite Car Studio — Lavaggio auto a domicilio a Milano e provincia</title>
+<meta name="description" content="Élite Car Studio è un servizio di lavaggio auto a domicilio a Milano e provincia: pulizia interni, pulizia esterni e lavaggio tappezzeria per automobili e motociclette.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=supreme&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050505'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='%23b11226' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Salta al contenuto</a>
+
+<!-- ═══════════════════════════ NAV ═══════════════════════════ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="logo" href="#top" aria-label="Élite Car Studio — home">
+      <span class="logo__mark">ÉLITE</span>
+      <span class="logo__sub">CAR STUDIO</span>
+    </a>
+
+    <nav class="nav__menu" id="navmenu" aria-label="Principale">
+      <a class="nav__link" href="#top">Home</a>
+      <div class="nav__drop">
+        <button class="nav__link nav__link--drop" aria-expanded="false" aria-controls="servizi-drop">
+          Servizi
+          <svg class="nav__chev" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </button>
+        <div class="nav__panel" id="servizi-drop" hidden>
+          <a href="#servizi">Pulizia interni</a>
+          <a href="#servizi">Pulizia esterni</a>
+          <a href="#servizi">Lavaggio tappezzeria</a>
+        </div>
+      </div>
+      <a class="nav__link" href="#progetti">Shop</a>
+      <a class="nav__link" href="#progetti">Progetti</a>
+      <a class="nav__link" href="#contatti">Contatti</a>
+
+      <div class="lang" role="group" aria-label="Lingua">
+        <button class="lang__btn is-active" aria-current="true">IT</button>
+        <button class="lang__btn">EN</button>
+        <button class="lang__btn">RU</button>
+        <button class="lang__btn">DE</button>
+      </div>
+    </nav>
+
+    <a class="btn-outline nav__cta" href="#contatti">Prenota</a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="navmenu" aria-label="Apri il menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero__media">
+    <video class="hero__video" id="herovideo" autoplay muted loop playsinline
+           poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1830' height='1030'%3E%3Crect width='1830' height='1030' fill='%23070907'/%3E%3C/svg%3E">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero__scrim"></div>
+  </div>
+
+  <div class="hero__grid wrap">
+    <div class="hero__l">
+      <h1 class="hero__title">
+        <span class="reveal d1">Élite Car</span>
+        <span class="reveal d2">Studio <em class="outline">Milano</em></span>
+      </h1>
+      <p class="hero__copy reveal">Élite Car Studio è un servizio di lavaggio auto a domicilio
+        attivo su Milano e provincia, specializzato nella pulizia e ripristino estetico di
+        automobili e motociclette. Grazie all'utilizzo di prodotti altamente specializzati
+        ridiamo nuova vita alla tua auto mantenendo il valore.</p>
+    </div>
+
+    <div class="hero__r">
+      <form class="form" id="richiesta" novalidate>
+        <p class="form__head">Richiedi un preventivo</p>
+        <p class="form__lead">Raccontaci di che cosa ha bisogno la tua auto. Ti rispondiamo
+          su WhatsApp con una proposta su misura.</p>
+
+        <p class="form__row">
+          <label class="mono mono--md form__l" for="f-nome">Nome completo</label>
+          <input class="form__i" id="f-nome" name="nome" type="text" autocomplete="name"
+                 aria-describedby="e-nome" required>
+          <span class="form__err mono" id="e-nome"></span>
+        </p>
+
+        <p class="form__row">
+          <label class="mono mono--md form__l" for="f-tel">Numero di telefono</label>
+          <input class="form__i" id="f-tel" name="telefono" type="tel" autocomplete="tel"
+                 inputmode="tel" aria-describedby="e-tel" required>
+          <span class="form__err mono" id="e-tel"></span>
+        </p>
+
+        <p class="form__row">
+          <label class="mono mono--md form__l" for="f-mail">Indirizzo email</label>
+          <input class="form__i" id="f-mail" name="email" type="email" autocomplete="email"
+                 inputmode="email" aria-describedby="e-mail" required>
+          <span class="form__err mono" id="e-mail"></span>
+        </p>
+
+        <p class="form__row">
+          <label class="mono mono--md form__l" for="f-via">Indirizzo di residenza</label>
+          <input class="form__i" id="f-via" name="residenza" type="text"
+                 autocomplete="street-address" aria-describedby="e-via" required>
+          <span class="form__err mono" id="e-via"></span>
+        </p>
+
+        <p class="form__row">
+          <label class="mono mono--md form__l" for="f-serv">Di che servizio hai bisogno</label>
+          <span class="form__sel">
+            <select class="form__i" id="f-serv" name="servizio" aria-describedby="e-serv" required>
+              <option value="">Seleziona un servizio</option>
+              <option>Pulizia interni</option>
+              <option>Pulizia esterni</option>
+              <option>Lavaggio tappezzeria</option>
+              <option>Altro</option>
+            </select>
+            <svg class="form__chev" width="11" height="7" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          </span>
+          <span class="form__err mono" id="e-serv"></span>
+        </p>
+
+        <p class="form__row">
+          <label class="mono mono--md form__l" for="f-note">Dettagli addizionali</label>
+          <textarea class="form__i form__t" id="f-note" name="note" rows="3"
+                    placeholder="Modello, stato della vernice, tempistiche…"></textarea>
+        </p>
+
+        <button class="btn-solid form__submit" type="submit">Invia su WhatsApp</button>
+        <p class="form__status mono" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SERVIZI ═══════════════════════════ -->
+<section class="sec servizi" id="servizi">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2 class="h2 h2--line reveal"><span class="green">I nostri servizi</span></h2>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <img class="card__bg" src="https://placehold.co/1000x760/0a0a0a/0a0a0a/png" alt="" aria-hidden="true">
+        <h3 class="card__title">Pulizia interni</h3>
+        <p class="card__copy">Riscopri il piacere di salire a bordo di un'auto impeccabile. Attraverso
+          una pulizia accurata di ogni superficie, eliminiamo polvere, sporco e residui anche nei punti
+          più difficili da raggiungere, restituendo agli interni freschezza, ordine e cura in ogni
+          dettaglio.</p>
+      </article>
+
+      <article class="card">
+        <img class="card__bg" src="https://placehold.co/1000x760/0a0a0a/0a0a0a/png" alt="" aria-hidden="true">
+        <h3 class="card__title">Pulizia esterni</h3>
+        <p class="card__copy">Valorizziamo ogni linea della tua auto con un lavaggio esterno
+          professionale, studiato per rimuovere in sicurezza sporco, contaminazioni e residui stradali.
+          Il risultato è una carrozzeria pulita, brillante e rifinita, nel pieno rispetto delle
+          superfici, senza rilasciare aloni o graffi sulla scocca.</p>
+      </article>
+
+      <article class="card">
+        <img class="card__bg" src="https://placehold.co/1000x760/0a0a0a/0a0a0a/png" alt="" aria-hidden="true">
+        <h3 class="card__title">Lavaggio tappezzeria</h3>
+        <p class="card__copy">Ridiamo nuova vita a sedili, moquette e rivestimenti attraverso un
+          trattamento profondo della tappezzeria. Interveniamo su macchie, sporco e cattivi odori,
+          migliorando l'aspetto e la freschezza dell'abitacolo per un ambiente più pulito, piacevole
+          e accogliente.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ VEICOLI ═══════════════════════════ -->
+<section class="ticker" aria-label="Tipologie di veicolo che trattiamo">
+  <div class="ticker__track">
+    <ul class="ticker__set">
+      <li>SUV</li>
+      <li>Hatchback</li>
+      <li>Crossover</li>
+      <li>Pickup</li>
+      <li>Minivan</li>
+      <li>MPV</li>
+      <li>Sedan</li>
+    </ul>
+    <ul class="ticker__set" aria-hidden="true">
+      <li>SUV</li>
+      <li>Hatchback</li>
+      <li>Crossover</li>
+      <li>Pickup</li>
+      <li>Minivan</li>
+      <li>MPV</li>
+      <li>Sedan</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PROCESSO ═══════════════════════════ -->
+<section class="processo" id="processo">
+  <div class="processo__pin">
+    <div class="wrap">
+      <h2 class="h2 h2--white">Come<br>funziona?</h2>
+    </div>
+
+    <div class="processo__stage">
+      <div class="processo__track">
+        <ol class="steps">
+          <li class="step">
+            <p class="step__n" aria-hidden="true">01</p>
+            <h3 class="step__t">Consulenza personalizzata</h3>
+            <p class="step__c">Ascoltiamo le tue esigenze e ti consigliamo il servizio più adatto al tuo veicolo e alle tue abitudini.</p>
+          </li>
+          <li class="step">
+            <p class="step__n" aria-hidden="true">02</p>
+            <h3 class="step__t">Valutazione del veicolo</h3>
+            <p class="step__c">Controlliamo lo stato di carrozzeria, interni e tappezzeria per capire dove serve intervenire.</p>
+          </li>
+          <li class="step">
+            <p class="step__n" aria-hidden="true">03</p>
+            <h3 class="step__t">Preparazione delle superfici</h3>
+            <p class="step__c">Prepariamo ogni superficie e proteggiamo le parti più delicate prima di iniziare il lavaggio.</p>
+          </li>
+          <li class="step">
+            <p class="step__n" aria-hidden="true">04</p>
+            <h3 class="step__t">Pulizia professionale</h3>
+            <p class="step__c">Interveniamo con prodotti specifici per ogni materiale, dentro e fuori dall'abitacolo.</p>
+          </li>
+          <li class="step">
+            <p class="step__n" aria-hidden="true">05</p>
+            <h3 class="step__t">Controllo qualità</h3>
+            <p class="step__c">Verifichiamo il risultato superficie per superficie, senza lasciare aloni né residui.</p>
+          </li>
+          <li class="step">
+            <p class="step__n" aria-hidden="true">06</p>
+            <h3 class="step__t">Consegna</h3>
+            <p class="step__c">Ti riconsegniamo il veicolo pronto, con qualche consiglio per mantenerlo così più a lungo.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ARCHIVIO ═══════════════════════════ -->
+<section class="sec archivio" id="progetti">
+  <div class="wrap">
+    <div class="archivio__head">
+      <div>
+        <h2 class="archivio__title reveal"><span class="archivio__mark">ÉLITE</span><em class="archivio__em">Selection</em></h2>
+        <p class="archivio__copy reveal">Alcune delle vetture affidate a Élite Car Studio. Porsche,
+          Ferrari, BMW, Lamborghini, Audi, Mercedes-AMG e molte altre scelgono il nostro metodo di
+          detailing professionale.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rail" id="rail" tabindex="0" aria-label="Archivio progetti, scorri orizzontalmente">
+    <ul class="rail__track">
+      <li class="proj"><figure><img src="https://placehold.co/860x1080/0c0c0c/0c0c0c/png" alt="Ferrari 296 GTB"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Ferrari</strong> <span>296 GTB</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Full PPF</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/1180x1080/0c0c0c/0c0c0c/png" alt="Lamborghini Huracán"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Lamborghini</strong> <span>Huracán</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Nanoceramico</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/980x1080/0c0c0c/0c0c0c/png" alt="Porsche 911"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Porsche</strong> <span>911</span></span></p>
+        <p class="proj__row mono proj__meta"><span>PPF frontale</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/1240x1080/0c0c0c/0c0c0c/png" alt="Aston Martin Vanquish Zagato"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Aston Martin</strong> <span>Vanquish Zagato</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Full PPF</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/1120x1080/0c0c0c/0c0c0c/png" alt="Mercedes-AMG GT"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Mercedes-AMG</strong> <span>GT</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Lucidatura</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/900x1080/0c0c0c/0c0c0c/png" alt="BMW M4 Competition"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>BMW</strong> <span>M4 Competition</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Wrapping</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/1260x1080/0c0c0c/0c0c0c/png" alt="Audi RS6 Avant"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Audi</strong> <span>RS6 Avant</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Detailing cerchi</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/1040x1080/0c0c0c/0c0c0c/png" alt="McLaren 720S"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>McLaren</strong> <span>720S</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Oscuramento vetri</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/880x1080/0c0c0c/0c0c0c/png" alt="Porsche Taycan"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Porsche</strong> <span>Taycan</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Detailing interni</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/1200x1080/0c0c0c/0c0c0c/png" alt="Ferrari Roma"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Ferrari</strong> <span>Roma</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Ripristino pelle</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/960x1080/0c0c0c/0c0c0c/png" alt="Lamborghini Urus"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Lamborghini</strong> <span>Urus</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Full PPF</span><span>Milano</span></p></li>
+
+      <li class="proj"><figure><img src="https://placehold.co/1150x1080/0c0c0c/0c0c0c/png" alt="Maserati MC20"><span class="proj__badge mono"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M.8 3.4V.8h2.6M9.2 3.4V.8H6.6M.8 6.6v2.6h2.6M9.2 6.6v2.6H6.6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>Full</span></figure>
+        <p class="proj__row"><span class="proj__name"><strong>Maserati</strong> <span>MC20</span></span></p>
+        <p class="proj__row mono proj__meta"><span>Nanoceramico</span><span>Milano</span></p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ NUMERI ═══════════════════════════ -->
+<section class="sec numeri">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat">
+        <p class="stat__n"><span class="stat__v" data-to="7">7</span><span class="stat__u">+</span></p>
+        <p class="stat__c">Anni di esperienza</p>
+      </div>
+      <div class="stat">
+        <p class="stat__n"><span class="stat__v" data-to="600">600</span><span class="stat__u">+</span></p>
+        <p class="stat__c">Veicoli trattati con successo</p>
+      </div>
+      <div class="stat">
+        <p class="stat__n"><span class="stat__v" data-to="2">2</span><span class="stat__u">h</span></p>
+        <p class="stat__c">Tempo massimo per i trattamenti</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RECENSIONI ═══════════════════════════ -->
+<section class="sec recensioni">
+  <div class="wrap">
+    <h2 class="h2 h2--white reveal">Recensioni</h2>
+    <p class="recensioni__lead reveal">La fiducia dei nostri clienti è il risultato di un lavoro
+      eseguito con precisione, trasparenza e attenzione ad ogni dettaglio.</p>
+
+    <div class="quotes">
+      <blockquote class="quote">
+        <span class="quote__glyph green" aria-hidden="true">❞</span>
+        <p class="quote__t">Ho applicato il PPF sulla parte frontale della mia 911 e dopo diversi
+          mesi l'auto è ancora impeccabile.</p>
+      </blockquote>
+      <blockquote class="quote">
+        <span class="quote__glyph green" aria-hidden="true">❞</span>
+        <p class="quote__t">Pensavo che la vernice fosse semplicemente invecchiata. Dopo la
+          lucidatura ho ritrovato la brillantezza del primo giorno.</p>
+      </blockquote>
+      <blockquote class="quote">
+        <span class="quote__glyph green" aria-hidden="true">❞</span>
+        <p class="quote__t">Il trattamento nanoceramico ha cambiato il modo in cui lavo l'auto:
+          lo sporco non si attacca più.</p>
+      </blockquote>
+      <blockquote class="quote">
+        <span class="quote__glyph green" aria-hidden="true">❞</span>
+        <p class="quote__t">Hanno riportato la pelle degli interni a uno stato che non vedevo
+          da anni. Lavoro fatto con una cura rara.</p>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ CONSULTO / CONTATTI ═══════════════════════════ -->
+<section class="sec consulto" id="contatti">
+  <!-- wave field, decorative; never takes pointer events -->
+  <div class="waves" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg"></svg></div>
+
+  <div class="wrap consulto__grid">
+    <div class="consulto__l">
+      <h2 class="consulto__title reveal">Dai nuova vita<br>alla tua auto</h2>
+      <p class="consulto__copy reveal">Prenota una consulenza con Élite Car Studio e scopri quale
+        trattamento è più adatto alla tua vettura. Realizziamo ogni intervento con la massima cura
+        e rispetto per la tua auto, preservandone il valore.</p>
+    </div>
+
+    <div class="consulto__r">
+      <div class="field">
+        <p class="mono mono--md field__l">Email</p>
+        <a class="field__v" href="mailto:info@elitecarstudio.it">info@elitecarstudio.it</a>
+      </div>
+      <div class="field">
+        <p class="mono mono--md field__l">Telefono</p>
+        <a class="field__v" href="tel:+390000000000">+39 000 000 0000</a>
+      </div>
+      <div class="field">
+        <p class="mono mono--md field__l">Sede</p>
+        <p class="field__v">Via —, 20090 Buccinasco (MI), Italia</p>
+      </div>
+
+      <a class="btn-solid" href="#contatti">Prenota su WhatsApp</a>
+      <a class="btn-outline btn-outline--wide" href="tel:+390000000000">
+        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h2.4l1.2 3-1.5 1.1a9 9 0 004.8 4.8L11 9.4l3 1.2V13a1 1 0 01-1.1 1A11.5 11.5 0 012 3.1 1 1 0 013 2z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        Chiama
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="logo logo--footer" href="#top">
+          <span class="logo__mark">ÉLITE</span>
+          <span class="logo__sub">CAR STUDIO</span>
+        </a>
+        <p class="footer__desc">Élite Car Studio. Detailing indipendente con sede a Buccinasco (MI)
+          dal 2018.</p>
+      </div>
+
+      <div class="footer__col">
+        <p class="mono mono--md footer__h">Studio</p>
+        <p class="footer__name">ÉLITE CAR STUDIO SRLS</p>
+        <p>Via —</p>
+        <p>20090 Buccinasco (MI)</p>
+        <p>Italia</p>
+        <p class="footer__gap"><a href="tel:+390000000000">+39 000 000 0000</a></p>
+        <p><a href="mailto:info@elitecarstudio.it">info@elitecarstudio.it</a></p>
+      </div>
+
+      <div class="footer__col">
+        <p class="mono mono--md footer__h">Social</p>
+        <p><a href="#top">Instagram</a></p>
+        <p><a href="#top">Facebook</a></p>
+        <p><a href="#top">YouTube</a></p>
+        <p><a href="#top">TikTok</a></p>
+        <p><a href="#top">WhatsApp</a></p>
+      </div>
+
+      <div class="footer__col footer__col--wide">
+        <p class="mono mono--md footer__h">Servizi</p>
+        <div class="footer__split">
+          <div>
+            <p><a href="#servizi">Pulizia interni</a></p>
+            <p><a href="#servizi">Pulizia esterni</a></p>
+            <p><a href="#servizi">Lavaggio tappezzeria</a></p>
+          </div>
+          <div>
+            <p><a href="#processo">Come funziona</a></p>
+            <p><a href="#progetti">Progetti</a></p>
+            <p><a href="#contatti">Contatti</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__col footer__col--hours">
+        <p class="mono mono--md footer__h">Orari · solo su appuntamento</p>
+        <p class="hours"><span>Lun — Ven</span><span>09:00 — 18:00</span></p>
+        <p class="hours"><span>Sab</span><span>09:00 — 14:00</span></p>
+        <p class="hours"><span>Dom</span><span>Chiuso</span></p>
+        <p class="footer__fine">Lun–Ven 09:00–18:00 · Sab 09:00–14:00</p>
+      </div>
+    </div>
+
+    <p class="footer__seo">Élite Car Studio è un servizio di lavaggio auto a domicilio attivo a
+      Milano e in provincia: pulizia degli interni, pulizia degli esterni e lavaggio della
+      tappezzeria per automobili e motociclette, eseguiti con prodotti professionali direttamente
+      dove ti trovi.</p>
+
+    <div class="footer__legal">
+      <p class="mono">© 2026 Élite Car Studio · P.IVA —<br>Realizzato da —</p>
+      <p class="mono footer__policies">
+        <a href="#top">Privacy policy</a>
+        <a href="#top">Cookie policy</a>
+        <a href="#top">Gestisci cookie</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script type="module" src="waves.js"></script>
+</body>
+</html>

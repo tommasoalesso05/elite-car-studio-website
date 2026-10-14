@@ -1,0 +1,6 @@
+.DS_Store
+
+# Reference captures of other companies' websites, used while building.
+# Kept on disk, deliberately not published.
+clonedetailing*.png
+Screenshot *.png
